@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+    padding-top: 3rem;
+    background: black;
+    font-family: 'Open Sans', sans-serif;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.navbar-brand {
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+
+.video-container {
+    margin-bottom: -40px;
+}
+
+.video-container > img {
+    cursor: pointer;
+}
+
+.bg-dark {
+    background: #333 !important;
+}
+
+.modal-article-body{
+    font-size: 0.9em;
+}
+
+.main-icon{
+    opacity: 0.9;
+    margin-right: 3px;
+}
