@@ -34,8 +34,10 @@ var app = new Vue({
                     var arr = data.split("\n")
                     if (arr.length > 0) {
                         for (var i = 0; i < arr.length; i++) {
-                            var tmp = arr[i].split(" | ")
-                            app.videos.push({id: tmp[0].replace("https://www.youtube.com/watch?v=", ""), title: tmp[1], by: tmp[2]})
+                            if(arr[i]) {
+                                var tmp = arr[i].split(" | ")
+                                app.videos.push({id: tmp[0].replace("https://www.youtube.com/watch?v=", ""), title: tmp[1], by: tmp[2]})
+                            }
                         }
                     }
                     app.shouldShowLoader = false
