@@ -35,7 +35,11 @@
             
             <main role="main" class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4 video-container text-center" v-for="(video, idx) in videos">
+                    <div class="col-md-12 text-center loader-container" v-show="shouldShowLoader">
+                        <p><span class="fa fa-circle-o-notch fa-spin loader-icon">&nbsp</span></p>
+                        <h4>Memuat playlist...</h4>
+                    </div>
+                    <div class="col-md-4 video-container text-center" v-for="(video, idx) in videos" v-show="shouldShowVideos">
                         <img v-bind:src="getThumbnailURL(video.id)" @click="playVideo(idx)" class="img-fluid"/>
                     </div>
                 </div>
@@ -77,7 +81,7 @@
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="assets/js/jquery-3.2.1.slim.min.js"></script>
+        <script src="assets/js/jquery-3.2.1.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/vue.js"></script>

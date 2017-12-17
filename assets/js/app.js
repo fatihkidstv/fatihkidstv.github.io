@@ -1,17 +1,11 @@
 var app = new Vue({
     el: '#app',
     data: {
+        shouldShowLoader: true,
+        shouldShowVideos: false,
         currentVideoTitle: '',
         videos: [
-            {id: "4KzBLpQ1LmU", title: "Yufid Kids - Doa Berbuka Puasa", by: "Yufid.TV"}, 
-            {id: "ZTPNzYKRvmw", title: "Yufid Kids - Doa Bangun Tidur", by: "Yufid.TV"},
-            {id: "ywpHWx-l500", title: "Yufid Kids - Mengenal Angka: 1 - 5", by: "Yufid.TV"}, 
-            {id: "w-OFnyJbSRw", title: "Yufid Kids - Mengenal Angka: 6 - 10", by: "Yufid.TV"}, 
-            {id: "okQggW16h44", title: "Bincang Ringan Angkringan - Pilih Kiri atau Kanan?", by: "Yufid.TV"}, 
-            {id: "knZ9Tj3vAo0", title: "Bincang Ringan Angkringan - Dzikir Saat Jalan Naik & Turun", by: "Yufid.TV"},
-            {id: "PeBPkYEXVJk", title: "Bincang Ringan Angkringan - Takut Setan?", by: "Yufid.TV"},
-            {id: "AQF_MBQCrNs", title: "Saudaraku - Maen PS, Apa Bisa Jadi Haram?", by: "Yufid.TV"},
-            {id: "0W1WJFZ5SsU", title: `Saudaraku - Budaya "Ngepek"`, by: "Yufid.TV"},
+            // element would be in format: {id: "4KzBLpQ1LmU", title: "Yufid Kids - Doa Berbuka Puasa", by: "Yufid.TV"}
         ],
         contentAboutUs: `
             <p>Assalamu'alaykum, Abi & Ummi!</p>
@@ -33,6 +27,22 @@ var app = new Vue({
         `
     },
     methods: {
+        loadPlayList() {
+            var app = this
+            $.get("/data.txt", function(data){
+                if(data){
+                    var arr = data.split("\n")
+                    if (arr.length > 0) {
+                        for (var i = 0; i < arr.length; i++) {
+                            var tmp = arr[i].split(" | ")
+                            app.videos.push({id: tmp[0].replace("https://www.youtube.com/watch?v=", ""), title: tmp[1], by: tmp[2]})
+                        }
+                    }
+                    app.shouldShowLoader = false
+                    app.shouldShowVideos = true
+                }
+            })
+        },
         setVideoIFrame(videoId, title){
             // it is necessary to replace iframe instead of just replace its
             // src property, otherwise when src is changed it will add entry
@@ -61,6 +71,9 @@ var app = new Vue({
             $('#modal_about_us').modal('show')
         }
     },
+    mounted(){
+        this.loadPlayList()
+    }
 })
 
 // register event for stopping playing video once modal closed
